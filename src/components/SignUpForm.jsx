@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-export default function SignUpForm({setToken}) {
+export default function SignUpForm({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -18,6 +19,7 @@ export default function SignUpForm({setToken}) {
       );
       const result = await response.json();
       setToken(result.token);
+      setSuccessMessage(result.message);
 
       console.log(result);
     } catch (error) {
@@ -47,6 +49,7 @@ export default function SignUpForm({setToken}) {
         </label>
         <button>Submit</button>
       </form>
+      {successMessage && <p>{successMessage}</p>}
     </>
   );
 }
